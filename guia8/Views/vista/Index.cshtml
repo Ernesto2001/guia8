@@ -1,0 +1,146 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     IEnumerable<string> strList = new List<string> { "POO", "TW", "MAT3", "FIS1" };
+    <h1> parte 8 Guia</h1>
+    <br />
+    <form asp-action="CrearFormulario">
+        <Div class="form-group row mb-4">
+
+            @*Nombre de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Nombre</label>
+                </div>
+                <div class="col-4">
+                    @Html.TextBox("nombre_usuario", "", new { @class = "form-control" })
+                </div>
+            </div>
+
+            @*password de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Contraseña</label>
+                </div>
+                <div class="col-4">
+                    @Html.Password("contrasenia", "", new { @class = "form-control" })
+                </div>
+            </div>
+
+            @*genero de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Genero</label>
+                </div>
+                <div class="col-4">
+                    @Html.RadioButton("genero", "Masculino", true, new { id = "masculino" })
+                    Masculino
+                    @Html.RadioButton("genero", "Femenino", true, new { id = "femenino" })
+                    Femenino
+                </div>
+            </div>
+
+            @*descripcion de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Dirección</label>
+                </div>
+                <div class="col-4">
+                    @Html.TextArea("direccion","Ingrese su dirección", new{ @class="form-control", id="idDireccion"})
+                </div>
+            </div>
+
+            @*pasatiempos de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Pasatiempos</label>
+                </div>
+                <div class="col-4">
+                    @Html.CheckBox("Bailar")
+                    Bailar
+                    @Html.CheckBox("Correr")
+                    Correr
+                    @Html.CheckBox("Escalar")
+                    Escalar
+                    @Html.CheckBox("Peliculas")
+                    Peliculas
+                </div>
+            </div>
+
+            @*curso de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Curso</label>
+                </div>
+                <div class="col-4">
+                    @Html.DropDownList("cursos", new SelectList(strList,
+                         strList.FirstOrDefault()), "--Seleccionar curso ----", new { @class = "form-control" })
+                </div>
+            </div>
+
+            @*conocimientos de usuario*@
+
+            <div class="row justify-content-center mb-2">
+                <div class="col-2 text-lg-end">
+                    <label>Conocimientos</label>
+                </div>
+                <div class="col-4">
+                    @Html.ListBox("conocimientos", new List<SelectListItem>{
+                        new SelectListItem {Text = "C #", Value = "1"},
+                        new SelectListItem {Text = "ASP.NET", Value = "2"},
+                        new SelectListItem {Text = "ASP.NET Core", Value = "3"},
+                        new SelectListItem {Text = "Azure", Value = "4"}
+                    })
+                </div>
+            </div>
+
+            @*enviar informacion a la base de datos*@
+
+            <div class="form-group row justify-content-center">
+                    <div class="col-sm-2">
+                        <input type="submit" class="btn btn-primary" value="Guardar"/>
+                    </div>
+            </Div>
+
+            @* todos los registros de la base de datos*@
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre de usuario</th>
+                        <th>Contraseña</th>
+                        <th>Genero</th>
+                        <th>Dirección</th>
+                        <th>Pasatiempo</th>
+                        <th>Cursos</th>
+                        <th>Conocimientos</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var formulario in (IEnumerable<dynamic>)ViewData["listadoFormulario"])
+                    {
+                        <tr>
+                            <td>@formulario.nombre</td>
+                            <td>@formulario.contrasenia</td>
+                            <td>@formulario.genero</td>
+                            <td>@formulario.direccion</td>
+                            <td>@formulario.pasatiempo</td>
+                            <td>@formulario.cursos</td>
+                            <td>@formulario.conocimientos</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+        </Div>
+    </form>
+}
